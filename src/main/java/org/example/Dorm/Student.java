@@ -1,7 +1,6 @@
 package org.example.Dorm;
 
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,10 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Student extends JFrame {
 
@@ -34,8 +34,17 @@ public class Student extends JFrame {
 
 
     public Student() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+                back();
+            }
+        });
+        setLocationRelativeTo(null);
+        setSize(450,300);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -64,5 +73,9 @@ public class Student extends JFrame {
         JLabel lbl2 = new JLabel("THE HOUSE FOR ALL VKU's STUDENTS");
         lbl2.setBounds(34, 118, 247, 14);
         contentPane.add(lbl2);
+    }
+    public void back(){
+        dispose();
+        new View().setVisible(true);
     }
 }

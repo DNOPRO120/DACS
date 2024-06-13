@@ -34,11 +34,14 @@ public class View extends JFrame {
 
     public View() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 675, 500);
+        setSize(675,500);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setResizable(false);
         setContentPane(contentPane);
         contentPane.setLayout(null);
+
 
         JLabel lblDM = new JLabel("DORM MANAGEMENT");
         lblDM.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -68,7 +71,7 @@ public class View extends JFrame {
         contentPane.add(btnManager);
 
         JLabel lblIcon = new JLabel("");
-        lblIcon.setIcon(new ImageIcon("C:\\Users\\Hong Quy\\Downloads\\bunk (3).png"));
+        lblIcon.setIcon(new ImageIcon("C:\\Users\\Administrator\\Downloads\\DACs\\bunk (3).png"));
         lblIcon.setBounds(300, 100, 300, 300);
         contentPane.add(lblIcon);
     }
