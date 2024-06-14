@@ -1,6 +1,8 @@
 package org.example.Dorm;
 
 
+import org.example.KetNoi.KetNoi;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -13,22 +15,22 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.CharArrayReader;
+import java.sql.*;
 import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
-    String user = "admin";
-    String pass = "1";
+    KetNoi conn = new KetNoi();
+    Connection cn = conn.getConnection();
     private JPanel contentPane;
     private JTextField tfMID;
     private JPasswordField tfPass;
     private Statement stmt;
     private PreparedStatement ps;
     private ResultSet rs;
+    View view =new View();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -45,8 +47,17 @@ public class LogIn extends JFrame {
 
 
     public LogIn() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+                view.back();
+            }
+        });
+        setSize(450,300);
+        setLocationRelativeTo(null);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -74,12 +85,15 @@ public class LogIn extends JFrame {
         tfPass.setBounds(100, 120, 300, 20);
         contentPane.add(tfPass);
 
+        boolean check = check(tfMID,tfPass);
+
+
         JButton btnLogIn = new JButton("Log In");
         btnLogIn.addActionListener(new ActionListener() {
             private Object Error;
 
             public void actionPerformed(ActionEvent arg0) {
-                if(tfMID.getText().equals(user) && tfPass.getText().equals(pass))
+                if(check == false)
                 {
                     Manager m = new Manager();
                     m.setVisible(true);
@@ -91,9 +105,26 @@ public class LogIn extends JFrame {
                     e.setVisible(true);
                     dispose();
                 }
+                System.out.println(check);
             }
         });
         btnLogIn.setBounds(150, 200, 100, 30);
         contentPane.add(btnLogIn);
+    }
+    public boolean check(JTextField tfMID,JPasswordField tfPass ){
+        String username = tfMID.getText();
+        char[] password = tfPass.getPassword();
+        try {
+            String query = "select * from manager where mid = ? and mpass = ?";
+            PreparedStatement preparedStatement = cn.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, new String(password));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
+        }
     }
 }

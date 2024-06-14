@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.awt.event.ActionEvent;
 
@@ -59,7 +61,15 @@ public class DeleteStudent extends JFrame {
         JScrollPane sc = new JScrollPane(tbl);
         setData();
         sc.setBounds(40, 110, 550, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+                Manager m = new Manager();
+                m.setVisible(true);
+            }
+        });
         setBounds(100, 100, 650, 500);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,8 +85,9 @@ public class DeleteStudent extends JFrame {
         btnDel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 Delete();
-                //Manager m = new Manager();
-                //m.setVisible(true);
+                dispose();
+                Manager m = new Manager();
+                m.setVisible(true);
             }
         });
         btnDel.setBounds(250, 420, 100, 30);

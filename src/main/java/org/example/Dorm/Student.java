@@ -42,8 +42,8 @@ public class Student extends JFrame {
                 back();
             }
         });
-        setLocationRelativeTo(null);
         setSize(450,300);
+        setLocationRelativeTo(null);
         setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

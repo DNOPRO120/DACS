@@ -1,32 +1,21 @@
 package org.example.Dorm;
 
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-
 import org.example.KetNoi.KetNoi;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 
-public class SearchStudent extends JFrame {
+public class SearchStudentManager extends JFrame {
 
     private JPanel contentPane;
     private JTextField tfID;
@@ -40,7 +29,7 @@ public class SearchStudent extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    SearchStudent frame = new SearchStudent();
+                    SearchStudentManager frame = new SearchStudentManager();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -50,13 +39,14 @@ public class SearchStudent extends JFrame {
     }
 
 
-    public SearchStudent() {
+    public SearchStudentManager() {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 dispose();
-                view.back();
+                Manager manager = new Manager();
+                manager.setVisible(true);
             }
         });
         setBounds(100, 100, 550, 500);

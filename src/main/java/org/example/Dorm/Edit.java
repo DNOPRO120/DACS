@@ -122,8 +122,8 @@ public class Edit extends JFrame {
                     e.printStackTrace();
                 }
                 dispose();
-                //Manager m = new Manager();
-                //m.setVisible(true);
+                Manager m = new Manager();
+                m.setVisible(true);
 
 
             }

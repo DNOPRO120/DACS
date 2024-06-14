@@ -75,4 +75,9 @@ public class View extends JFrame {
         lblIcon.setBounds(300, 100, 300, 300);
         contentPane.add(lblIcon);
     }
+
+    public void back(){
+        dispose();
+        new View().setVisible(true);
+    }
 }
