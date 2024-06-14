@@ -4,20 +4,13 @@ package org.example.Dorm;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import org.example.KetNoi.KetNoi;
 
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JButton;
-import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -113,6 +106,7 @@ public class SearchStudent extends JFrame {
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    System.out.println("hi");
                     //System.out.println(e.getMessage());
                 }
             }

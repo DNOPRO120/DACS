@@ -3,7 +3,6 @@ package org.example.Dorm;
 
 import org.example.KetNoi.KetNoi;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,7 +16,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.CharArrayReader;
 import java.sql.*;
 import java.awt.event.ActionEvent;
 
@@ -85,46 +83,50 @@ public class LogIn extends JFrame {
         tfPass.setBounds(100, 120, 300, 20);
         contentPane.add(tfPass);
 
-        boolean check = check(tfMID,tfPass);
-
 
         JButton btnLogIn = new JButton("Log In");
         btnLogIn.addActionListener(new ActionListener() {
             private Object Error;
 
             public void actionPerformed(ActionEvent arg0) {
-                if(check == false)
-                {
-                    Manager m = new Manager();
-                    m.setVisible(true);
-                    dispose();
-                }
-                else
-                {
-                    Error e = new Error();
-                    e.setVisible(true);
-                    dispose();
-                }
-                System.out.println(check);
+                String username = tfMID.getText();
+                char[] password = tfPass.getPassword();
+                System.out.println(username+password);
+                login(username,new String(password));
+                System.out.println("hi");
             }
         });
         btnLogIn.setBounds(150, 200, 100, 30);
         contentPane.add(btnLogIn);
     }
-    public boolean check(JTextField tfMID,JPasswordField tfPass ){
-        String username = tfMID.getText();
-        char[] password = tfPass.getPassword();
-        try {
-            String query = "select * from manager where mid = ? and mpass = ?";
-            PreparedStatement preparedStatement = cn.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, new String(password));
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next();
+    public void login(String username, String password) {
+        System.out.println("A "+username+" "+password);
+
+        String sql = "select * from manager where mid = '" + username + "' and mpass = '" +password+"'";
+
+        try (Connection cn = conn.getConnection()){
+            PreparedStatement preparedStatement = cn.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(sql);
+
+            if (resultSet.next()) {
+                System.out.println("1");
+                System.out.println(username + password);
+                Manager m = new Manager();
+                m.setVisible(true);
+                dispose();
+            } else {
+                System.out.println("2");
+                System.out.println(username + password);
+                Error e = new Error();
+                e.setVisible(true);
+                dispose();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return true;
+            System.out.println("3");
         }
     }
 }

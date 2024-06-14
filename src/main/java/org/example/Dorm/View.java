@@ -71,7 +71,7 @@ public class View extends JFrame {
         contentPane.add(btnManager);
 
         JLabel lblIcon = new JLabel("");
-        lblIcon.setIcon(new ImageIcon("C:\\Users\\Administrator\\Downloads\\DACs\\bunk (3).png"));
+        lblIcon.setIcon(new ImageIcon("D:\\CODE\\JAVA\\DACS\\DACS\\bunk (3).png"));
         lblIcon.setBounds(300, 100, 300, 300);
         contentPane.add(lblIcon);
     }
