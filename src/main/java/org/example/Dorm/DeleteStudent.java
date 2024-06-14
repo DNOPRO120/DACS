@@ -70,7 +70,9 @@ public class DeleteStudent extends JFrame {
                 m.setVisible(true);
             }
         });
-        setBounds(100, 100, 650, 500);
+        setSize(650,500);
+        setLocationRelativeTo(null);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
